@@ -83,7 +83,11 @@ class hsBrightness extends HTMLElement {
     setBrightness(brightness){
         this.brightness = brightness;
         this.setAttribute("brightness",brightness);
-        this.getPixelFromPercent(brightness);
+        if( this.nightMode ){
+            this.getNightPixelFromPercent(brightness);
+        }else{
+            this.getPixelFromPercent(brightness);
+        }
         this.setVisualPercent(brightness);
     }
 
@@ -116,20 +120,23 @@ class hsBrightness extends HTMLElement {
         return handleHalfPixel / this.fullHeight_Pixel * 100
     }
 
+    getNightPixelFromPercent(brightness){
+        this.currPixel =  ( brightness / this.maxNightBright ) * this.fullHeight_Pixel;
+    }
+
     getPixelFromPercent(brightness){
         let height = this.fullHeight_Pixel;
         this.currPixel = (height / 100) * brightness;
     }
 
     setVisualPercent(percent){
-        console.log("Setting to: ", percent, "pixel: ", this.currPixel);
         this.brightness = this.clamp(percent,0,100);
         this.setAttribute("brightness",this.brightness);
         this.elements.percent.innerText     = `${this.brightness}%`;
         this.elements.body.style.height     = `${this.currPixel}px`;
         this.elements.handle.style.bottom   = `${this.currPixel-this.handleHeight/2}px`;
 
-        if( this.brightness >= this.maxBrightness -2 ){
+        if( this.currPixel >= this.fullHeight_Pixel -15 ){
             this.classList.add("atFull");
         }else{
             this.classList.remove("atFull");
