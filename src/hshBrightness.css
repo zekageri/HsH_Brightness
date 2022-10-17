@@ -1,0 +1,118 @@
+:root {
+    --brightness-lower-half-color: linear-gradient(-90deg,#02f68d 10%,#21c688 44%,#0c7f95 100%);
+    --brightness-thumb-color: #40c2a6;
+    --brightness_thumb-color_active: #21b998;
+
+    --nightmode-brightness-thumb-color: #28947d;
+    --nightmode-brightness-lower-half-color: linear-gradient(-90deg,#00b667 10%,#198b5f 44%,#096679 100%);
+
+    --hsh-brightness-height: 250px;
+    --hsh-brightness-width: 100px;
+    --hsh-brightness-handle-height: 25px;
+}
+
+hs-brightness {
+    position: relative;
+    width: var(--hsh-brightness-width);
+    height: var(--hsh-brightness-height);
+    border-radius: 1.7em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    overflow: hidden;
+    margin: 5px 5px 35px;
+}
+
+body.dark-theme hs-brightness {
+    box-shadow: rgb(0 0 0 / 50%) 0 4px 12px;
+}
+
+hs-brightness[nightMode = true]{
+    box-shadow: rgba(2, 97, 18, 0.5) 0 4px 12px;
+}
+
+.hs-brightness-lower {
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    height: 50%;
+    background: var(--brightness-lower-half-color);
+    border-radius: 0em 0em 1.7em 1.7em;
+    transition: border-radius 0.2s ease;
+}
+
+hs-brightness.atFull{
+    overflow: visible;
+}
+
+hs-brightness.atFull .hs-brightness-lower{
+    border-radius: 1.7em;
+}
+
+span.hs-brightness-name-wrap {
+    width: 100%;
+    bottom: -35px;
+    position: absolute;
+    font-size: 1.1em;
+    color: rgb(129, 129, 129);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+span.hs-brightness-name{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hs-brightness-handle {
+    position: absolute;
+    bottom: calc(50% - calc(var(--hsh-brightness-handle-height)/2));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    left: 7px;
+    width: 85%;
+    height: var(--hsh-brightness-handle-height);
+    border-radius: 0.4em;
+    background-color: var(--brightness-thumb-color);
+    color: white;
+
+    cursor: pointer;
+}
+
+.hs-brightness-percent-holder{
+    pointer-events: none;
+}
+
+.hs-brightness-handle:hover, .hs-brightness-handle:active {
+    background-color: var(--brightness_thumb-color_active);
+}
+
+hs-brightness[nightMode = true] .hs-brightness-handle{
+    background-color: var(--nightmode-brightness-thumb-color);
+}
+
+hs-brightness[nightMode = true] .hs-brightness-lower{
+    background: var(--nightmode-brightness-lower-half-color);
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
