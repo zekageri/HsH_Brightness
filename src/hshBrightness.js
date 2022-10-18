@@ -121,12 +121,13 @@ class hsBrightness extends HTMLElement {
     }
 
     getNightPixelFromPercent(brightness){
-        this.currPixel =  ( brightness / this.maxNightBright ) * this.fullHeight_Pixel;
+        let pixel = ( brightness / this.maxNightBright ) * this.fullHeight_Pixel;
+        this.currPixel =  this.clamp(pixel,0,this.fullHeight_Pixel);
     }
 
     getPixelFromPercent(brightness){
-        let height = this.fullHeight_Pixel;
-        this.currPixel = (height / 100) * brightness;
+        let pixel = (this.fullHeight_Pixel / 100) * brightness;
+        this.currPixel = this.clamp(pixel,0,this.fullHeight_Pixel);
     }
 
     setVisualPercent(percent){
