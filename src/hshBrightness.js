@@ -81,12 +81,13 @@ class hsBrightness extends HTMLElement {
     }
 
     setBrightness(brightness){
-        this.brightness = brightness;
         this.setAttribute("brightness",brightness);
         if( this.nightMode ){
+            this.nightBright = brightness;
             this.getNightPixelFromPercent(brightness);
         }else{
             this.getPixelFromPercent(brightness);
+            this.brightness = brightness;
         }
         this.setVisualPercent(brightness);
     }
